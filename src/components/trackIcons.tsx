@@ -1,0 +1,37 @@
+import {
+  Code2,
+  Globe,
+  GitBranch,
+  Brain,
+  Terminal,
+  Server,
+  Cpu,
+  Headphones,
+  Network,
+  Cloud,
+  Rocket,
+  Database,
+  Shield,
+  Braces,
+  Sparkles,
+} from "lucide-react";
+import type { Track } from "@/types/question";
+
+export const TRACK_ICONS: Record<Track, React.ReactNode> = {
+  python: <Code2 size={22} />,
+  web: <Globe size={22} />,
+  software_dev: <GitBranch size={22} />,
+  algorithms: <Brain size={22} />,
+  linux: <Terminal size={22} />,
+  sysadmin: <Server size={22} />,
+  operating_systems: <Cpu size={22} />,
+  it_support: <Headphones size={22} />,
+  networking: <Network size={22} />,
+  cloud: <Cloud size={22} />,
+  devops: <Rocket size={22} />,
+  databases: <Database size={22} />,
+  cybersecurity: <Shield size={22} />,
+  cpp: <Braces size={22} />,
+  infrastructure: <Server size={22} />,
+  ai_prompting: <Sparkles size={22} />,
+};
