@@ -13,10 +13,10 @@ export const networkingBundle: TrackBundle = {
       question: { ar: "كم عدد طبقات نموذج OSI؟", en: "How many layers does the OSI model have?" },
       choices: [
         { id: "a", text: { ar: "5", en: "5" } },
-        { id: "b", text: { ar: "7", en: "7" } },
-        { id: "c", text: { ar: "4", en: "4" } },
+        { id: "b", text: { ar: "4", en: "4" } },
+        { id: "c", text: { ar: "7", en: "7" } },
         { id: "d", text: { ar: "6", en: "6" } },
-      ], correctAnswer: "b",
+      ], correctAnswer: "c",
       explanation: {
         short: { ar: "نموذج OSI يتكون من 7 طبقات: Physical, Data Link, Network, Transport, Session, Presentation, Application.", en: "The OSI model has 7 layers: Physical, Data Link, Network, Transport, Session, Presentation, Application." },
         commonMistake: { ar: "الخلط بين OSI (7 طبقات) و TCP/IP (4 طبقات).", en: "Confusing OSI (7 layers) with the TCP/IP model (4 layers)." },
@@ -27,10 +27,10 @@ export const networkingBundle: TrackBundle = {
       question: { ar: "في أي طبقة من OSI يعمل بروتوكول IP؟", en: "At which OSI layer does IP operate?" },
       choices: [
         { id: "a", text: { ar: "Data Link (2)", en: "Data Link (2)" } },
-        { id: "b", text: { ar: "Network (3)", en: "Network (3)" } },
+        { id: "b", text: { ar: "Application (7)", en: "Application (7)" } },
         { id: "c", text: { ar: "Transport (4)", en: "Transport (4)" } },
-        { id: "d", text: { ar: "Application (7)", en: "Application (7)" } },
-      ], correctAnswer: "b",
+        { id: "d", text: { ar: "Network (3)", en: "Network (3)" } },
+      ], correctAnswer: "d",
       explanation: {
         short: { ar: "IP يعمل في Layer 3 (Network) ويوجّه الحزم بين الشبكات.", en: "IP operates at Layer 3 (Network) and routes packets between networks." },
       },
@@ -40,10 +40,10 @@ export const networkingBundle: TrackBundle = {
       question: { ar: "ما الفرق الرئيسي بين TCP و UDP؟", en: "What is the main difference between TCP and UDP?" },
       choices: [
         { id: "a", text: { ar: "كلاهما متطابقان وليس بينهما فرق", en: "Both are identical with no functional difference" } },
-        { id: "b", text: { ar: "TCP موثوق ومرتب، UDP أسرع وبدون اتصال", en: "TCP is reliable and ordered; UDP is faster and connectionless" } },
-        { id: "c", text: { ar: "TCP للهاتف، UDP للحاسوب فقط", en: "TCP is for phones; UDP is for computers only" } },
+        { id: "b", text: { ar: "TCP للهاتف، UDP للحاسوب فقط", en: "TCP is for phones; UDP is for computers only" } },
+        { id: "c", text: { ar: "TCP موثوق ومرتب، UDP أسرع وبدون اتصال", en: "TCP is reliable and ordered; UDP is faster and connectionless" } },
         { id: "d", text: { ar: "UDP أحدث ويستخدم في كل التطبيقات", en: "UDP is newer and used in every modern application" } },
-      ], correctAnswer: "b",
+      ], correctAnswer: "c",
       explanation: {
         short: { ar: "TCP يضمن وصول البيانات بترتيبها عبر handshake و acknowledgments، بينما UDP يرسل دون ضمان.", en: "TCP guarantees ordered delivery via handshakes and acks; UDP sends without guarantees." },
         realWorld: { ar: "TCP: HTTPS والبريد. UDP: VoIP و DNS والبث.", en: "TCP: HTTPS, email. UDP: VoIP, DNS, streaming." },
@@ -54,10 +54,10 @@ export const networkingBundle: TrackBundle = {
       question: { ar: "ما المنفذ الافتراضي لـ HTTPS؟", en: "What is the default port for HTTPS?" },
       choices: [
         { id: "a", text: { ar: "80", en: "80" } },
-        { id: "b", text: { ar: "21", en: "21" } },
-        { id: "c", text: { ar: "443", en: "443" } },
+        { id: "b", text: { ar: "443", en: "443" } },
+        { id: "c", text: { ar: "21", en: "21" } },
         { id: "d", text: { ar: "22", en: "22" } },
-      ], correctAnswer: "c",
+      ], correctAnswer: "b",
       explanation: {
         short: { ar: "HTTPS = port 443. HTTP = port 80. SSH = 22. FTP = 21.", en: "HTTPS = 443. HTTP = 80. SSH = 22. FTP = 21." },
       },
@@ -80,11 +80,11 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l1-q06", track: "networking", level: 1, type: "mcq", difficulty: "easy",
       question: { ar: "كم bits في عنوان IPv4؟", en: "How many bits are in an IPv4 address?" },
       choices: [
-        { id: "a", text: { ar: "16", en: "16" } },
-        { id: "b", text: { ar: "32", en: "32" } },
+        { id: "a", text: { ar: "32", en: "32" } },
+        { id: "b", text: { ar: "16", en: "16" } },
         { id: "c", text: { ar: "64", en: "64" } },
         { id: "d", text: { ar: "128", en: "128" } },
-      ], correctAnswer: "b",
+      ], correctAnswer: "a",
       explanation: {
         short: { ar: "IPv4 = 32 bit مقسم إلى 4 octets. IPv6 = 128 bit.", en: "IPv4 = 32 bits, split into 4 octets. IPv6 = 128 bits." },
       },
@@ -93,10 +93,10 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l1-q07", track: "networking", level: 1, type: "mcq", difficulty: "easy",
       question: { ar: "أي عنوان IP يُستخدم للـ loopback؟", en: "Which IP is used for loopback?" },
       choices: [
-        { id: "a", text: { ar: "خط عنق الزجاجة في الشبكات السلكية", en: "A bottleneck point in wired computer networks" } },
-        { id: "b", text: { ar: "Subnet mask يحدد الجزء الشبكي والمضيف من IP", en: "Subnet mask separates network and host parts of IP" } },
-        { id: "c", text: { ar: "أداة لقياس سرعة الإنترنت بدقة", en: "A tool for accurately measuring internet speed" } },
-        { id: "d", text: { ar: "نوع متقدم من بروتوكولات التوجيه", en: "An advanced type of network routing protocol" } },
+        { id: "a", text: { ar: "0.0.0.0", en: "0.0.0.0" } },
+        { id: "b", text: { ar: "127.0.0.1", en: "127.0.0.1" } },
+        { id: "c", text: { ar: "255.255.255.255", en: "255.255.255.255" } },
+        { id: "d", text: { ar: "169.254.0.1", en: "169.254.0.1" } },
       ], correctAnswer: "b",
       explanation: {
         short: { ar: "127.0.0.1 هو localhost — يشير إلى الجهاز نفسه.", en: "127.0.0.1 is localhost — it refers to the machine itself." },
@@ -107,10 +107,10 @@ export const networkingBundle: TrackBundle = {
       question: { ar: "أي من التالي عنوان IP خاص (private)؟", en: "Which of the following is a private IP?" },
       choices: [
         { id: "a", text: { ar: "بروتوكول لإرسال الرسائل بين الخوادم", en: "A protocol for sending messages between servers" } },
-        { id: "b", text: { ar: "Default gateway: المخرج للشبكات الخارجية", en: "Default gateway: the exit point to external networks" } },
-        { id: "c", text: { ar: "اسم نطاق رئيسي للشركات الكبيرة فقط", en: "A primary domain name used by large enterprises" } },
+        { id: "b", text: { ar: "اسم نطاق رئيسي للشركات الكبيرة فقط", en: "A primary domain name used by large enterprises" } },
+        { id: "c", text: { ar: "Default gateway: المخرج للشبكات الخارجية", en: "Default gateway: the exit point to external networks" } },
         { id: "d", text: { ar: "نوع من الشبكات اللاسلكية المنزلية الحديثة", en: "A type of modern wireless home network setup" } },
-      ], correctAnswer: "b",
+      ], correctAnswer: "c",
       explanation: {
         short: { ar: "النطاقات الخاصة: 10.0.0.0/8، 172.16.0.0/12، 192.168.0.0/16.", en: "Private ranges: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16." },
       },
@@ -119,11 +119,11 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l1-q09", track: "networking", level: 1, type: "mcq", difficulty: "easy",
       question: { ar: "ماذا يفعل الـ Router؟", en: "What does a router do?" },
       choices: [
-        { id: "a", text: { ar: "نوع متقدم من أجهزة Wi-Fi المنزلية", en: "An advanced type of home Wi-Fi devices today" } },
-        { id: "b", text: { ar: "يوجّه الحزم بين شبكات مختلفة بذكاء", en: "Routes packets between different networks intelligently" } },
+        { id: "a", text: { ar: "يوجّه الحزم بين شبكات مختلفة بذكاء", en: "Routes packets between different networks intelligently" } },
+        { id: "b", text: { ar: "نوع متقدم من أجهزة Wi-Fi المنزلية", en: "An advanced type of home Wi-Fi devices today" } },
         { id: "c", text: { ar: "يقوم فقط بتضخيم إشارة الإنترنت محلياً", en: "Only amplifies the internet signal in a local area" } },
         { id: "d", text: { ar: "خادم متخصص في تخزين بيانات المستخدمين", en: "A server specialized in storing user data securely" } },
-      ], correctAnswer: "b",
+      ], correctAnswer: "a",
       explanation: {
         short: { ar: "Router يعمل في Layer 3 ويوجّه بين subnets/شبكات مختلفة عبر routing table.", en: "A router operates at Layer 3 and routes between subnets/networks via a routing table." },
       },
@@ -132,11 +132,11 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l1-q10", track: "networking", level: 1, type: "mcq", difficulty: "easy",
       question: { ar: "ما وظيفة DHCP؟", en: "What does DHCP do?" },
       choices: [
-        { id: "a", text: { ar: "بروتوكول لتشفير الاتصالات اللاسلكية", en: "A protocol for encrypting wireless communications today" } },
-        { id: "b", text: { ar: "يخصص IP و gateway و DNS تلقائياً للأجهزة", en: "Auto-assigns IP, gateway, and DNS to devices on join" } },
+        { id: "a", text: { ar: "يخصص IP و gateway و DNS تلقائياً للأجهزة", en: "Auto-assigns IP, gateway, and DNS to devices on join" } },
+        { id: "b", text: { ar: "بروتوكول لتشفير الاتصالات اللاسلكية", en: "A protocol for encrypting wireless communications today" } },
         { id: "c", text: { ar: "نظام لإدارة كلمات المرور للمستخدمين", en: "A system for managing user passwords securely" } },
         { id: "d", text: { ar: "أداة لقياس جودة الاتصال بالإنترنت", en: "A tool for measuring quality of internet connection" } },
-      ], correctAnswer: "b",
+      ], correctAnswer: "a",
       explanation: {
         short: { ar: "DHCP يعطي الجهاز IP و subnet mask و gateway و DNS تلقائياً.", en: "DHCP automatically assigns an IP, subnet mask, gateway, and DNS." },
         example: { ar: "عملية DORA: Discover → Offer → Request → Acknowledge.", en: "DORA process: Discover → Offer → Request → Acknowledge." },
@@ -175,10 +175,10 @@ export const networkingBundle: TrackBundle = {
       question: { ar: "ما الفرق بين Hub و Switch؟", en: "What's the difference between a hub and a switch?" },
       choices: [
         { id: "a", text: { ar: "كلاهما نفس الجهاز بأسماء مختلفة فقط", en: "Both are the same device with just different names" } },
-        { id: "b", text: { ar: "Hub يبث للجميع، Switch يرسل للهدف فقط", en: "Hub broadcasts to all; switch sends only to target" } },
+        { id: "b", text: { ar: "Switch قديم، Hub هو الحديث المستخدم اليوم", en: "Switches are legacy; hubs are the modern choice today" } },
         { id: "c", text: { ar: "الـ Hub أسرع من الـ Switch دائماً وأبداً", en: "A hub is always faster than a switch in any case" } },
-        { id: "d", text: { ar: "Switch قديم، Hub هو الحديث المستخدم اليوم", en: "Switches are legacy; hubs are the modern choice today" } },
-      ], correctAnswer: "b",
+        { id: "d", text: { ar: "Hub يبث للجميع، Switch يرسل للهدف فقط", en: "Hub broadcasts to all; switch sends only to target" } },
+      ], correctAnswer: "d",
       explanation: {
         short: { ar: "Switch يبني MAC address table ويوجّه الـ frames بدقة، Hub يرسل نسخة للجميع.", en: "A switch builds a MAC address table and forwards precisely; a hub floods to all." },
       },
@@ -188,10 +188,10 @@ export const networkingBundle: TrackBundle = {
       question: { ar: "ماذا يمثل عنوان MAC؟", en: "What does a MAC address represent?" },
       choices: [
         { id: "a", text: { ar: "عنوان منطقي قابل للتغيير من قبل المستخدم", en: "A logical changeable address that users can modify easily" } },
-        { id: "b", text: { ar: "معرف فيزيائي ثابت لبطاقة الشبكة (48-bit)", en: "A physical NIC identifier, usually fixed (48-bit hex)" } },
+        { id: "b", text: { ar: "رقم منفذ يحدد الخدمة على الجهاز المستهدف", en: "A port number identifying a service on target machine" } },
         { id: "c", text: { ar: "اسم الجهاز في الشبكة المحلية للشركة", en: "The device's hostname in the company's local network" } },
-        { id: "d", text: { ar: "رقم منفذ يحدد الخدمة على الجهاز المستهدف", en: "A port number identifying a service on target machine" } },
-      ], correctAnswer: "b",
+        { id: "d", text: { ar: "معرف فيزيائي ثابت لبطاقة الشبكة (48-bit)", en: "A physical NIC identifier, usually fixed (48-bit hex)" } },
+      ], correctAnswer: "d",
       explanation: {
         short: { ar: "MAC = 48 bit فيزيائي يُستخدم في Layer 2.", en: "MAC = 48-bit physical identifier used at Layer 2." },
         commonMistake: { ar: "يمكن 'تزييف' MAC (spoofing) لكنه أصلاً hardware identifier.", en: "MACs can be spoofed, but they originate as hardware identifiers." },
@@ -201,11 +201,11 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l2-q05", track: "networking", level: 2, type: "mcq", difficulty: "medium",
       question: { ar: "ما وظيفة ARP؟", en: "What is ARP's purpose?" },
       choices: [
-        { id: "a", text: { ar: "نوع متقدم من الكابلات السلكية للشبكات", en: "An advanced type of wired networking cable today" } },
-        { id: "b", text: { ar: "VLAN: شبكة فرعية افتراضية تعزل الترافيك", en: "VLAN: a virtual sub-network that isolates traffic logically" } },
-        { id: "c", text: { ar: "بروتوكول قديم لمشاركة الملفات بين الأجهزة", en: "A legacy protocol for sharing files between devices" } },
-        { id: "d", text: { ar: "أداة لقياس استهلاك النطاق الترددي للمستخدم", en: "A tool for measuring user bandwidth consumption" } },
-      ], correctAnswer: "b",
+        { id: "a", text: { ar: "يحوّل IP إلى MAC داخل الـ LAN", en: "Resolves an IP to a MAC inside the LAN" } },
+        { id: "b", text: { ar: "يحوّل اسم نطاق إلى IP في الأنظمة الحديثة المستخدمة اليوم", en: "Resolves a name to an IP in modern systems used today" } },
+        { id: "c", text: { ar: "يشفّر الحزم بدون الحاجة لإعدادات إضافية معقدة", en: "Encrypts packets without needing additional configuration" } },
+        { id: "d", text: { ar: "يوزّع IPs عبر بيئات الإنتاج المختلفة", en: "Assigns IPs across different production environments" } },
+      ], correctAnswer: "a",
       explanation: {
         short: { ar: "ARP يربط IP بـ MAC في نفس الشبكة المحلية.", en: "ARP maps an IP to a MAC in the same local network." },
         realWorld: { ar: "ARP spoofing يُستغل في هجمات MITM.", en: "ARP spoofing is abused in MITM attacks." },
@@ -215,11 +215,11 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l2-q06", track: "networking", level: 2, type: "mcq", difficulty: "medium",
       question: { ar: "ما default gateway؟", en: "What is the default gateway?" },
       choices: [
-        { id: "a", text: { ar: "أي جهاز متصل بالشبكة المحلية حالياً", en: "Any device currently connected on the local network" } },
-        { id: "b", text: { ar: "العنوان الذي تُرسل إليه الحزم خارج الـ LAN", en: "The address packets destined outside the LAN go to" } },
+        { id: "a", text: { ar: "العنوان الذي تُرسل إليه الحزم خارج الـ LAN", en: "The address packets destined outside the LAN go to" } },
+        { id: "b", text: { ar: "أي جهاز متصل بالشبكة المحلية حالياً", en: "Any device currently connected on the local network" } },
         { id: "c", text: { ar: "خادم مخصص لترجمة أسماء النطاقات للـ IPs", en: "A dedicated server for translating domain names to IPs" } },
         { id: "d", text: { ar: "خادم لتوزيع عناوين IP تلقائياً للأجهزة", en: "A server for distributing IP addresses to devices auto" } },
-      ], correctAnswer: "b",
+      ], correctAnswer: "a",
       explanation: {
         short: { ar: "عندما يستهدف الجهاز IP خارج شبكته، يُرسل الحزمة للـ default gateway.", en: "When a device targets an IP outside its network, it sends the packet to the default gateway." },
       },
@@ -228,10 +228,10 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l2-q07", track: "networking", level: 2, type: "terminal", difficulty: "medium",
       question: { ar: "أي أمر يختبر الوصول لعنوان IP؟", en: "Which command tests reachability to an IP?" },
       choices: [
-        { id: "a", text: { ar: "نوع متقدم من الجدران النارية الذكية", en: "An advanced type of intelligent firewall protection" } },
-        { id: "b", text: { ar: "NAT: ترجمة عناوين IP الخاصة إلى عامة", en: "NAT: translates private IP addresses to public ones" } },
-        { id: "c", text: { ar: "نظام مراقبة الشبكة في الوقت الحقيقي", en: "A real-time network monitoring system for admins" } },
-        { id: "d", text: { ar: "بروتوكول لإدارة الأجهزة عن بُعد بأمان", en: "A protocol for remotely managing devices securely" } },
+        { id: "a", text: { ar: "ping", en: "ping" } },
+        { id: "b", text: { ar: "dig", en: "dig" } },
+        { id: "c", text: { ar: "ipconfig", en: "ipconfig" } },
+        { id: "d", text: { ar: "nslookup", en: "nslookup" } },
       ], correctAnswer: "a",
       explanation: {
         short: { ar: "ping يرسل ICMP echo ويقيس زمن الرد.", en: "ping sends ICMP echo and measures response time." },
@@ -254,11 +254,11 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l2-q09", track: "networking", level: 2, type: "mcq", difficulty: "medium",
       question: { ar: "ما منفذ SSH الافتراضي؟", en: "What is the default SSH port?" },
       choices: [
-        { id: "a", text: { ar: "موقع المستخدم في شبكة الشركة المحلية", en: "The user's location in the local corporate network" } },
-        { id: "b", text: { ar: "MAC address: معرف فريد لكل بطاقة شبكة", en: "MAC address: a unique identifier for each network card" } },
-        { id: "c", text: { ar: "نوع متقدم من بروتوكولات التشفير الحديثة", en: "An advanced type of modern encryption protocol" } },
-        { id: "d", text: { ar: "نظام لتسريع الإنترنت داخل الشبكات الكبيرة", en: "A system for speeding up internet in large networks" } },
-      ], correctAnswer: "b",
+        { id: "a", text: { ar: "21", en: "21" } },
+        { id: "b", text: { ar: "23", en: "23" } },
+        { id: "c", text: { ar: "22", en: "22" } },
+        { id: "d", text: { ar: "25", en: "25" } },
+      ], correctAnswer: "c",
       explanation: {
         short: { ar: "SSH = 22. FTP = 21. Telnet = 23. SMTP = 25.", en: "SSH = 22. FTP = 21. Telnet = 23. SMTP = 25." },
       },
@@ -282,11 +282,11 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l3-q01", track: "networking", level: 3, type: "mcq", difficulty: "medium",
       question: { ar: "ما VLAN؟", en: "What is a VLAN?" },
       choices: [
-        { id: "a", text: { ar: "شبكة فيزيائية منفصلة بكابلات وأجهزة خاصة", en: "A separate physical network with dedicated cables and devices" } },
-        { id: "b", text: { ar: "تقسيم منطقي لـ switch ينشئ broadcast domains", en: "A logical switch partition creating separate broadcast domains" } },
-        { id: "c", text: { ar: "نوع من الكابلات للشبكات السريعة الحديثة", en: "A type of high-speed cable for modern fast networks" } },
-        { id: "d", text: { ar: "بروتوكول توجيه متقدم للشبكات الكبيرة جداً", en: "An advanced routing protocol for very large networks" } },
-      ], correctAnswer: "b",
+        { id: "a", text: { ar: "تقسيم منطقي للـ switch لإنشاء broadcast domains منفصلة", en: "A logical switch partition creating separate broadcast domains" } },
+        { id: "b", text: { ar: "شبكة فيزيائية منفصلة في الأنظمة الحديثة المستخدمة اليوم", en: "A separate physical network in modern systems used today" } },
+        { id: "c", text: { ar: "نوع كابل بدون الحاجة لإعدادات إضافية معقدة", en: "A cable type without needing additional configuration" } },
+        { id: "d", text: { ar: "بروتوكول توجيه عبر بيئات الإنتاج المختلفة", en: "A routing protocol across different production environments" } },
+      ], correctAnswer: "a",
       explanation: {
         short: { ar: "VLAN يقسم switch واحد إلى عدة شبكات منطقية.", en: "A VLAN logically splits one switch into multiple networks." },
         example: { ar: "VLAN 10 للموظفين، VLAN 20 للضيوف.", en: "VLAN 10 for staff, VLAN 20 for guests." },
@@ -296,11 +296,11 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l3-q02", track: "networking", level: 3, type: "mcq", difficulty: "medium",
       question: { ar: "ما وظيفة NAT؟", en: "What's the purpose of NAT?" },
       choices: [
-        { id: "a", text: { ar: "نوع من الشبكات اللاسلكية للمنازل الذكية", en: "A type of wireless network for smart homes today" } },
-        { id: "b", text: { ar: "OSI: 7 طبقات تصف وظائف الاتصال الشبكي", en: "OSI: a 7-layer model describing networking communication" } },
-        { id: "c", text: { ar: "نظام تشغيل مفتوح المصدر للراوترات", en: "An open-source operating system for routers today" } },
-        { id: "d", text: { ar: "بروتوكول لإدارة عناوين الإنترنت العامة", en: "A protocol for managing public internet addresses" } },
-      ], correctAnswer: "b",
+        { id: "a", text: { ar: "تشفير البيانات في الأنظمة الحديثة المستخدمة اليوم", en: "Encrypting data in modern systems used today" } },
+        { id: "b", text: { ar: "حماية من فيروسات بدون الحاجة لإعدادات إضافية معقدة", en: "Anti-virus without needing additional configuration" } },
+        { id: "c", text: { ar: "توزيع IPs عبر بيئات الإنتاج المختلفة", en: "Assigning IPs across different production environments" } },
+        { id: "d", text: { ar: "ترجمة IPs خاصة إلى IP عام للخروج للإنترنت", en: "Translating private IPs to a public IP for internet access" } },
+      ], correctAnswer: "d",
       explanation: {
         short: { ar: "NAT يسمح لأجهزة بـ IPs خاصة بمشاركة IP عام واحد.", en: "NAT lets devices with private IPs share a single public IP." },
       },
@@ -323,10 +323,10 @@ export const networkingBundle: TrackBundle = {
       question: { ar: "ما وظيفة MX record؟", en: "What is an MX record for?" },
       choices: [
         { id: "a", text: { ar: "يحدد عنوان IP الرئيسي لخادم الموقع", en: "Specifies the main IP address for the website server" } },
-        { id: "b", text: { ar: "يحدد خوادم البريد المسؤولة عن النطاق", en: "Specifies mail servers responsible for the domain" } },
+        { id: "b", text: { ar: "يوجه subdomains لخوادم مختلفة بشكل ذكي", en: "Routes subdomains to different servers intelligently" } },
         { id: "c", text: { ar: "يخزن مفاتيح التشفير الخاصة بالنطاق", en: "Stores encryption keys associated with the domain" } },
-        { id: "d", text: { ar: "يوجه subdomains لخوادم مختلفة بشكل ذكي", en: "Routes subdomains to different servers intelligently" } },
-      ], correctAnswer: "b",
+        { id: "d", text: { ar: "يحدد خوادم البريد المسؤولة عن النطاق", en: "Specifies mail servers responsible for the domain" } },
+      ], correctAnswer: "d",
       explanation: {
         short: { ar: "MX يحدد أين تُسلَّم رسائل @yourdomain.com.", en: "MX records tell senders where to deliver email for @yourdomain.com." },
       },
@@ -335,11 +335,11 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l3-q05", track: "networking", level: 3, type: "mcq", difficulty: "medium",
       question: { ar: "ما TTL في DNS؟", en: "What is TTL in DNS?" },
       choices: [
-        { id: "a", text: { ar: "نوع جديد من خدمات الإنترنت الفضائي", en: "A new type of satellite internet service today" } },
-        { id: "b", text: { ar: "بروتوكول التوجيه يحدد المسار الأمثل للحزم", en: "A routing protocol determines optimal path for packets" } },
-        { id: "c", text: { ar: "نظام لتسريع تحميل المواقع العالمية", en: "A system for speeding up global website loading" } },
-        { id: "d", text: { ar: "أداة لمراقبة استخدام الموظفين للإنترنت", en: "A tool for monitoring employee internet usage habits" } },
-      ], correctAnswer: "b",
+        { id: "a", text: { ar: "مدة بقاء الإجابة في الـ cache قبل التحديث", en: "How long an answer stays cached before refresh" } },
+        { id: "b", text: { ar: "وقت انتهاء النطاق في الأنظمة الحديثة المستخدمة اليوم", en: "Domain expiry in modern systems used today" } },
+        { id: "c", text: { ar: "عدد القفزات بدون الحاجة لإعدادات إضافية معقدة", en: "Number of hops without needing additional configuration" } },
+        { id: "d", text: { ar: "سرعة الاتصال عبر بيئات الإنتاج المختلفة", en: "Connection speed across different production environments" } },
+      ], correctAnswer: "a",
       explanation: {
         short: { ar: "TTL بالثواني. خفّضه قبل ترحيل DNS لتقليل زمن الانتشار.", en: "TTL is in seconds. Lower it before a DNS migration to reduce propagation time." },
       },
@@ -349,10 +349,10 @@ export const networkingBundle: TrackBundle = {
       question: { ar: "أي أمر يستعلم عن DNS records؟", en: "Which command queries DNS records?" },
       choices: [
         { id: "a", text: { ar: "ping", en: "ping" } },
-        { id: "b", text: { ar: "dig أو nslookup", en: "dig or nslookup" } },
+        { id: "b", text: { ar: "ip route", en: "ip route" } },
         { id: "c", text: { ar: "netstat", en: "netstat" } },
-        { id: "d", text: { ar: "ip route", en: "ip route" } },
-      ], correctAnswer: "b",
+        { id: "d", text: { ar: "dig أو nslookup", en: "dig or nslookup" } },
+      ], correctAnswer: "d",
       explanation: {
         short: { ar: "dig أقوى وأوضح. nslookup كلاسيكي.", en: "dig is more powerful and clear; nslookup is classic." },
       },
@@ -361,11 +361,11 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l3-q07", track: "networking", level: 3, type: "mcq", difficulty: "medium",
       question: { ar: "ما الفرق بين static route و dynamic route؟", en: "Difference between static and dynamic routing?" },
       choices: [
-        { id: "a", text: { ar: "نوع من اتصالات الإنترنت اللاسلكية الحديثة", en: "A type of modern wireless internet connection" } },
-        { id: "b", text: { ar: "QoS: أولوية لأنواع معينة من الترافيك", en: "QoS: prioritizes certain types of network traffic" } },
-        { id: "c", text: { ar: "نظام تشغيل خاص بالخوادم السحابية الكبيرة", en: "An OS designed for large cloud servers and racks" } },
-        { id: "d", text: { ar: "بروتوكول قديم لمشاركة الموارد بين أنظمة", en: "A legacy protocol for sharing resources between systems" } },
-      ], correctAnswer: "b",
+        { id: "a", text: { ar: "Static يدوي، Dynamic يتعلّم تلقائياً عبر بروتوكولات مثل OSPF/BGP", en: "Static is manual; dynamic learns automatically via OSPF/BGP" } },
+        { id: "b", text: { ar: "لا فرق في الأنظمة الحديثة المستخدمة اليوم", en: "No difference in modern systems used today" } },
+        { id: "c", text: { ar: "Static أبطأ بدون الحاجة لإعدادات إضافية معقدة", en: "Static is slower without needing additional configuration" } },
+        { id: "d", text: { ar: "Dynamic غير مستخدم عبر بيئات الإنتاج المختلفة", en: "Dynamic isn't used across different production environments" } },
+      ], correctAnswer: "a",
       explanation: {
         short: { ar: "OSPF داخل المؤسسة، BGP بين ISPs.", en: "OSPF inside an organization, BGP between ISPs." },
       },
@@ -374,11 +374,11 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l3-q08", track: "networking", level: 3, type: "terminal", difficulty: "medium",
       question: { ar: "أي أمر يعرض جدول التوجيه على Linux؟", en: "Which command shows the routing table on Linux?" },
       choices: [
-        { id: "a", text: { ar: "نوع من الكابلات الشبكية ذات السرعة العالية", en: "A type of high-speed networking cable used today" } },
-        { id: "b", text: { ar: "Load balancer يوزع الترافيك على عدة خوادم", en: "A load balancer distributes traffic across multiple servers" } },
-        { id: "c", text: { ar: "أداة لاختبار سرعة الاتصال بقاعدة بيانات", en: "A tool for testing connection speed to a database" } },
-        { id: "d", text: { ar: "نظام لإدارة شهادات SSL للمواقع الكبيرة", en: "A system for managing SSL certs on large sites" } },
-      ], correctAnswer: "b",
+        { id: "a", text: { ar: "ifconfig", en: "ifconfig" } },
+        { id: "b", text: { ar: "traceroute", en: "traceroute" } },
+        { id: "c", text: { ar: "ping", en: "ping" } },
+        { id: "d", text: { ar: "ip route", en: "ip route" } },
+      ], correctAnswer: "d",
       explanation: {
         short: { ar: "ip route أو route -n. المخرج النموذجي: default via 192.168.1.1 dev eth0.", en: "ip route or route -n. Typical: default via 192.168.1.1 dev eth0." },
       },
@@ -388,10 +388,10 @@ export const networkingBundle: TrackBundle = {
       question: { ar: "ما الفرق بين HTTP/1.1 و HTTP/2؟", en: "Difference between HTTP/1.1 and HTTP/2?" },
       choices: [
         { id: "a", text: { ar: "HTTP/2 لا يدعم TLS ويستخدم HTTP فقط", en: "HTTP/2 doesn't support TLS and only uses plain HTTP" } },
-        { id: "b", text: { ar: "HTTP/2 يدعم multiplexing عبر اتصال واحد", en: "HTTP/2 supports multiplexing — parallel requests over one connection" } },
+        { id: "b", text: { ar: "HTTP/2 لا يدعم cookies أو الجلسات حالياً", en: "HTTP/2 doesn't support cookies or sessions currently" } },
         { id: "c", text: { ar: "HTTP/1.1 أسرع بكثير من HTTP/2 في كل الأحوال", en: "HTTP/1.1 is much faster than HTTP/2 in all cases today" } },
-        { id: "d", text: { ar: "HTTP/2 لا يدعم cookies أو الجلسات حالياً", en: "HTTP/2 doesn't support cookies or sessions currently" } },
-      ], correctAnswer: "b",
+        { id: "d", text: { ar: "HTTP/2 يدعم multiplexing عبر اتصال واحد", en: "HTTP/2 supports multiplexing — parallel requests over one connection" } },
+      ], correctAnswer: "d",
       explanation: {
         short: { ar: "HTTP/2 يحل مشكلة head-of-line blocking و يضغط headers.", en: "HTTP/2 solves head-of-line blocking and compresses headers." },
       },
@@ -400,11 +400,11 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l3-q10", track: "networking", level: 3, type: "mcq", difficulty: "medium",
       question: { ar: "ما الذي يميز HTTP/3؟", en: "What distinguishes HTTP/3?" },
       choices: [
-        { id: "a", text: { ar: "ميزة قديمة لم تعد تستخدم في الشبكات", en: "A legacy feature no longer used in networks today" } },
-        { id: "b", text: { ar: "VPN site-to-site يربط شبكتين عبر الإنترنت", en: "Site-to-site VPN connects two networks over internet" } },
-        { id: "c", text: { ar: "نوع جديد من خدمات الإنترنت للأعمال", en: "A new type of business internet service available" } },
-        { id: "d", text: { ar: "نظام لإدارة المستخدمين عبر مواقع متعددة", en: "A system for managing users across multiple sites" } },
-      ], correctAnswer: "b",
+        { id: "a", text: { ar: "يستخدم TCP في الأنظمة الحديثة المستخدمة اليوم", en: "Uses TCP in modern systems used today" } },
+        { id: "b", text: { ar: "بلا تشفير بدون الحاجة لإعدادات إضافية معقدة", en: "No encryption without needing additional configuration" } },
+        { id: "c", text: { ar: "يعتمد على QUIC فوق UDP لتقليل latency", en: "Based on QUIC over UDP to reduce latency" } },
+        { id: "d", text: { ar: "نفس HTTP/2 عبر بيئات الإنتاج المختلفة", en: "Same as HTTP/2 across different production environments" } },
+      ], correctAnswer: "c",
       explanation: {
         short: { ar: "HTTP/3 يحل head-of-line على مستوى TCP باستخدام QUIC.", en: "HTTP/3 fixes TCP-level head-of-line blocking using QUIC." },
       },
@@ -415,11 +415,11 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l4-q01", track: "networking", level: 4, type: "mcq", difficulty: "medium",
       question: { ar: "ما الفرق بين stateful و stateless firewall؟", en: "Stateful vs stateless firewall?" },
       choices: [
-        { id: "a", text: { ar: "كلاهما متطابقان ولا فرق وظيفي عملي بينهما", en: "Both are identical with no practical functional difference between them" } },
-        { id: "b", text: { ar: "Stateful يتعقب حالة الاتصال، Stateless يفحص كل packet", en: "Stateful tracks connection state; stateless inspects each packet in isolation" } },
+        { id: "a", text: { ar: "Stateful يتعقب حالة الاتصال، Stateless يفحص كل packet", en: "Stateful tracks connection state; stateless inspects each packet in isolation" } },
+        { id: "b", text: { ar: "كلاهما متطابقان ولا فرق وظيفي عملي بينهما", en: "Both are identical with no practical functional difference between them" } },
         { id: "c", text: { ar: "Stateless أأمن من Stateful في كل سيناريوهات الإنتاج", en: "Stateless is safer than Stateful in all production scenarios today" } },
         { id: "d", text: { ar: "Stateful قديم ولم يعد يستخدم في الشبكات الحديثة", en: "Stateful is legacy and no longer used in modern networks today" } },
-      ], correctAnswer: "b",
+      ], correctAnswer: "a",
       explanation: {
         short: { ar: "AWS Security Groups stateful. Network ACLs stateless.", en: "AWS Security Groups are stateful; Network ACLs are stateless." },
       },
@@ -429,10 +429,10 @@ export const networkingBundle: TrackBundle = {
       question: { ar: "ما VPN؟", en: "What is a VPN?" },
       choices: [
         { id: "a", text: { ar: "متصفح خاص لإخفاء هوية المستخدم على الإنترنت العام", en: "A special browser to hide user identity on the public internet" } },
-        { id: "b", text: { ar: "نفق مشفر عبر الإنترنت العام بين شبكتين منفصلتين", en: "An encrypted tunnel across the public internet between two networks" } },
-        { id: "c", text: { ar: "نوع من خوادم الإنترنت لتسريع الوصول للمواقع البعيدة", en: "A type of internet server for speeding up access to remote sites" } },
+        { id: "b", text: { ar: "نوع من خوادم الإنترنت لتسريع الوصول للمواقع البعيدة", en: "A type of internet server for speeding up access to remote sites" } },
+        { id: "c", text: { ar: "نفق مشفر عبر الإنترنت العام بين شبكتين منفصلتين", en: "An encrypted tunnel across the public internet between two networks" } },
         { id: "d", text: { ar: "بروتوكول لإرسال الإيميلات بشكل آمن ومشفر تماماً", en: "A protocol for sending emails in a fully secure and encrypted way" } },
-      ], correctAnswer: "b",
+      ], correctAnswer: "c",
       explanation: {
         short: { ar: "VPN ينشئ اتصالاً مشفراً بينك وبين سيرفر الشركة/المزود.", en: "A VPN creates an encrypted connection to the corporate/provider server." },
       },
@@ -441,11 +441,11 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l4-q03", track: "networking", level: 4, type: "mcq", difficulty: "medium",
       question: { ar: "ما TLS handshake؟", en: "What is a TLS handshake?" },
       choices: [
-        { id: "a", text: { ar: "بدء اتصال TCP بين العميل والخادم على الإنترنت", en: "Starting a TCP connection between client and server on the internet" } },
-        { id: "b", text: { ar: "تبادل للاتفاق على مفاتيح التشفير قبل نقل البيانات", en: "An exchange to agree on encryption keys before data transfer begins" } },
+        { id: "a", text: { ar: "تبادل للاتفاق على مفاتيح التشفير قبل نقل البيانات", en: "An exchange to agree on encryption keys before data transfer begins" } },
+        { id: "b", text: { ar: "بدء اتصال TCP بين العميل والخادم على الإنترنت", en: "Starting a TCP connection between client and server on the internet" } },
         { id: "c", text: { ar: "تبادل DNS لتحديد عنوان الخادم المستهدف للاتصال", en: "A DNS exchange for determining target server address for connection" } },
         { id: "d", text: { ar: "عملية DHCP لتخصيص عنوان IP للجهاز عند الاتصال", en: "A DHCP process for assigning IP addresses to devices on connect" } },
-      ], correctAnswer: "b",
+      ], correctAnswer: "a",
       explanation: {
         short: { ar: "يثبت هوية السيرفر (عبر الشهادة) ويتفق على مفتاح symmetric.", en: "Verifies server identity via certificate and agrees on a symmetric key." },
       },
@@ -455,10 +455,10 @@ export const networkingBundle: TrackBundle = {
       question: { ar: "ما هجوم DDoS؟", en: "What is a DDoS attack?" },
       choices: [
         { id: "a", text: { ar: "هجوم لسرقة كلمات المرور من خوادم المؤسسات الكبيرة", en: "An attack for stealing passwords from large enterprise servers" } },
-        { id: "b", text: { ar: "إغراق الهدف بطلبات من مصادر متعددة لتعطيل الخدمة", en: "Overwhelming a target with requests from many sources to disrupt service" } },
-        { id: "c", text: { ar: "هجوم لتشفير الملفات وطلب فدية لفك تشفيرها", en: "An attack for encrypting files and demanding ransom to decrypt them" } },
+        { id: "b", text: { ar: "هجوم لتشفير الملفات وطلب فدية لفك تشفيرها", en: "An attack for encrypting files and demanding ransom to decrypt them" } },
+        { id: "c", text: { ar: "إغراق الهدف بطلبات من مصادر متعددة لتعطيل الخدمة", en: "Overwhelming a target with requests from many sources to disrupt service" } },
         { id: "d", text: { ar: "استنساخ المواقع لخداع المستخدمين والحصول على بياناتهم", en: "Cloning websites to trick users and obtain their personal data" } },
-      ], correctAnswer: "b",
+      ], correctAnswer: "c",
       explanation: {
         short: { ar: "الدفاع: Cloudflare، AWS Shield، rate limiting، WAF.", en: "Defenses: Cloudflare, AWS Shield, rate limiting, WAF." },
       },
@@ -480,11 +480,11 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l4-q06", track: "networking", level: 4, type: "mcq", difficulty: "hard",
       question: { ar: "ما Load Balancer؟", en: "What is a load balancer?" },
       choices: [
-        { id: "a", text: { ar: "نوع جدار ناري متقدم لحماية الشبكات الداخلية الكبيرة", en: "A type of advanced firewall for protecting large internal networks" } },
-        { id: "b", text: { ar: "جهاز/خدمة توزع الـ traffic على عدة backends لتوفر عالٍ", en: "A device/service distributing traffic across multiple backends for availability" } },
+        { id: "a", text: { ar: "جهاز/خدمة توزع الـ traffic على عدة backends لتوفر عالٍ", en: "A device/service distributing traffic across multiple backends for availability" } },
+        { id: "b", text: { ar: "نوع جدار ناري متقدم لحماية الشبكات الداخلية الكبيرة", en: "A type of advanced firewall for protecting large internal networks" } },
         { id: "c", text: { ar: "متصفح خاص بمدراء الشبكات لتشخيص المشاكل المعقدة", en: "A special browser for network admins to diagnose complex issues" } },
         { id: "d", text: { ar: "قاعدة بيانات لتخزين سجلات الترافيك في الشبكة الداخلية", en: "A database for storing traffic logs in the internal network today" } },
-      ], correctAnswer: "b",
+      ], correctAnswer: "a",
       explanation: {
         short: { ar: "أنواع: L4 (TCP/UDP) و L7 (HTTP). أمثلة: NGINX، HAProxy، AWS ALB.", en: "Types: L4 (TCP/UDP) and L7 (HTTP). Examples: NGINX, HAProxy, AWS ALB." },
       },
@@ -519,11 +519,11 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l4-q09", track: "networking", level: 4, type: "terminal", difficulty: "hard",
       question: { ar: "أي أمر يعرض المنافذ المفتوحة والاتصالات؟", en: "Which command shows open ports and connections?" },
       choices: [
-        { id: "a", text: { ar: "ping", en: "ping" } },
-        { id: "b", text: { ar: "ss أو netstat", en: "ss or netstat" } },
+        { id: "a", text: { ar: "ss أو netstat", en: "ss or netstat" } },
+        { id: "b", text: { ar: "ping", en: "ping" } },
         { id: "c", text: { ar: "dig", en: "dig" } },
         { id: "d", text: { ar: "route", en: "route" } },
-      ], correctAnswer: "b",
+      ], correctAnswer: "a",
       explanation: {
         short: { ar: "ss -tuln = TCP و UDP listening ports. ss هو البديل الحديث لـ netstat.", en: "ss -tuln lists TCP and UDP listening ports. ss is the modern replacement for netstat." },
       },
@@ -587,10 +587,10 @@ export const networkingBundle: TrackBundle = {
       question: { ar: "ما MTU ولماذا يهم؟", en: "What is MTU and why it matters?" },
       choices: [
         { id: "a", text: { ar: "سرعة الشبكة بالميجابت في الثانية على الأجهزة الحديثة", en: "Network speed in megabits per second on modern devices today" } },
-        { id: "b", text: { ar: "أكبر حجم packet ينتقل بدون تجزئة عبر الشبكة المحلية", en: "Largest packet size transmitted without fragmentation across network" } },
-        { id: "c", text: { ar: "عدد المنافذ المتاحة في الجهاز للاتصالات المتزامنة", en: "Number of available ports on the device for concurrent connections" } },
+        { id: "b", text: { ar: "عدد المنافذ المتاحة في الجهاز للاتصالات المتزامنة", en: "Number of available ports on the device for concurrent connections" } },
+        { id: "c", text: { ar: "أكبر حجم packet ينتقل بدون تجزئة عبر الشبكة المحلية", en: "Largest packet size transmitted without fragmentation across network" } },
         { id: "d", text: { ar: "نوع الكابل المستخدم في الشبكة بين الأجهزة المختلفة", en: "Type of cable used in the network between different devices today" } },
-      ], correctAnswer: "b",
+      ], correctAnswer: "c",
       explanation: {
         short: { ar: "Ethernet القياسي = 1500 byte. VPN غالباً 1400. MTU خاطئ = بطء غامض.", en: "Standard Ethernet = 1500 bytes. VPN often 1400. Wrong MTU = mysterious slowness." },
       },
@@ -600,10 +600,10 @@ export const networkingBundle: TrackBundle = {
       question: { ar: "تصمم شبكة لـ 500 موظف في 3 طوابق. أفضل تصميم؟", en: "Designing a network for 500 employees across 3 floors. Best design?" },
       choices: [
         { id: "a", text: { ar: "شبكة flat واحدة من نوع /24 لكل المستخدمين معاً", en: "One flat /24 network for all users together without separation" } },
-        { id: "b", text: { ar: "VLAN لكل قسم/طابق + router مع ACLs محكمة الإعداد", en: "A VLAN per floor/department + router with strict ACL configurations" } },
+        { id: "b", text: { ar: "عناوين IP عامة لكل جهاز بدون NAT للأمان البسيط", en: "Public IPs for every device without NAT for simple security" } },
         { id: "c", text: { ar: "ثلاثة routers معزولة بالكامل لكل طابق على حدة", en: "Three completely isolated routers for each floor independently" } },
-        { id: "d", text: { ar: "عناوين IP عامة لكل جهاز بدون NAT للأمان البسيط", en: "Public IPs for every device without NAT for simple security" } },
-      ], correctAnswer: "b",
+        { id: "d", text: { ar: "VLAN لكل قسم/طابق + router مع ACLs محكمة الإعداد", en: "A VLAN per floor/department + router with strict ACL configurations" } },
+      ], correctAnswer: "d",
       explanation: {
         short: { ar: "الشبكة المسطحة تخلق broadcast ضخم ومشاكل أمنية. VLANs تعزل وتُسهّل الإدارة.", en: "A flat network creates huge broadcast and security issues. VLANs segment and simplify management." },
       },
@@ -613,10 +613,10 @@ export const networkingBundle: TrackBundle = {
       question: { ar: "ما Anycast؟", en: "What is Anycast?" },
       choices: [
         { id: "a", text: { ar: "إرسال packet لمستخدم واحد محدد عبر الشبكة المحلية", en: "Sending a packet to a single specified user across the local network" } },
-        { id: "b", text: { ar: "عدة خوادم تشترك بنفس IP والشبكة توجه للأقرب جغرافياً", en: "Multiple servers share the same IP; network routes to the nearest one" } },
+        { id: "b", text: { ar: "إرسال packet لمجموعة محددة من الأجهزة في multicast", en: "Sending a packet to a specific group of devices in multicast mode" } },
         { id: "c", text: { ar: "إرسال packet لكل الأجهزة على الشبكة المحلية فوراً", en: "Sending a packet to all devices on the local network immediately" } },
-        { id: "d", text: { ar: "إرسال packet لمجموعة محددة من الأجهزة في multicast", en: "Sending a packet to a specific group of devices in multicast mode" } },
-      ], correctAnswer: "b",
+        { id: "d", text: { ar: "عدة خوادم تشترك بنفس IP والشبكة توجه للأقرب جغرافياً", en: "Multiple servers share the same IP; network routes to the nearest one" } },
+      ], correctAnswer: "d",
       explanation: {
         short: { ar: "يُستخدم في DNS (1.1.1.1) و CDN.", en: "Used in DNS (1.1.1.1) and CDNs." },
       },
@@ -638,11 +638,11 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l5-q08", track: "networking", level: 5, type: "mcq", difficulty: "hard",
       question: { ar: "عند تصميم High Availability، ما الأفضل؟", en: "For high availability, what's best?" },
       choices: [
-        { id: "a", text: { ar: "خادم واحد قوي جداً يتعامل مع كل الـ traffic بسرعة", en: "One very powerful server handling all traffic quickly with high specs" } },
-        { id: "b", text: { ar: "عدة خوادم عبر AZs خلف load balancer لتوفر عالٍ", en: "Multiple servers across AZs behind a load balancer for high availability" } },
+        { id: "a", text: { ar: "عدة خوادم عبر AZs خلف load balancer لتوفر عالٍ", en: "Multiple servers across AZs behind a load balancer for high availability" } },
+        { id: "b", text: { ar: "خادم واحد قوي جداً يتعامل مع كل الـ traffic بسرعة", en: "One very powerful server handling all traffic quickly with high specs" } },
         { id: "c", text: { ar: "عطّل المراقبة لتقليل الحمل على الخوادم في الإنتاج", en: "Disable monitoring to reduce load on servers in production environment" } },
         { id: "d", text: { ar: "IP ثابت واحد للوصول لكل الخدمات من جهة العميل دائماً", en: "Single static IP to access all services from the client side always" } },
-      ], correctAnswer: "b",
+      ], correctAnswer: "a",
       explanation: {
         short: { ar: "HA = لا single point of failure. AZs مختلفة تحمي من أعطال DC كاملة.", en: "HA = no SPOF. Multiple AZs protect against full DC outages." },
       },
@@ -651,11 +651,11 @@ export const networkingBundle: TrackBundle = {
     { id: "net-l5-q09", track: "networking", level: 5, type: "mcq", difficulty: "hard",
       question: { ar: "ما الفرق بين latency و bandwidth؟", en: "Difference between latency and bandwidth?" },
       choices: [
-        { id: "a", text: { ar: "كلاهما يعنيان نفس الشيء ولا فرق وظيفي بينهما اليوم", en: "Both mean the same thing with no functional difference today" } },
-        { id: "b", text: { ar: "Latency زمن وصول الـ packet، bandwidth بيانات في الثانية", en: "Latency = packet travel time; bandwidth = data per second through link" } },
+        { id: "a", text: { ar: "Latency زمن وصول الـ packet، bandwidth بيانات في الثانية", en: "Latency = packet travel time; bandwidth = data per second through link" } },
+        { id: "b", text: { ar: "كلاهما يعنيان نفس الشيء ولا فرق وظيفي بينهما اليوم", en: "Both mean the same thing with no functional difference today" } },
         { id: "c", text: { ar: "Bandwidth يقاس بالميلي ثانية، latency يقاس بالميجابت", en: "Bandwidth is measured in milliseconds; latency is measured in megabits" } },
         { id: "d", text: { ar: "Latency خاص بـ UDP فقط، bandwidth خاص بـ TCP فقط", en: "Latency is for UDP only; bandwidth is for TCP only on networks" } },
-      ], correctAnswer: "b",
+      ], correctAnswer: "a",
       explanation: {
         short: { ar: "تشبيه: bandwidth = عرض الطريق، latency = سرعة السيارة.", en: "Analogy: bandwidth = road width, latency = car speed." },
       },
@@ -665,10 +665,10 @@ export const networkingBundle: TrackBundle = {
       question: { ar: "ما Jumbo Frames؟", en: "What are jumbo frames?" },
       choices: [
         { id: "a", text: { ar: "حزم خاصة بنقل الفيديو بشكل أسرع على الإنترنت العام", en: "Special packets for transferring video faster on public internet" } },
-        { id: "b", text: { ar: "Frames بـ MTU ~9000 داخل data centers لزيادة throughput", en: "Frames with ~9000 MTU inside data centers to boost throughput rates" } },
+        { id: "b", text: { ar: "تقنية قديمة لم تعد مدعومة في معظم أجهزة الشبكات", en: "A legacy technology no longer supported in most network devices today" } },
         { id: "c", text: { ar: "ميزة في IPv6 فقط ولا تعمل مع IPv4 التقليدي اليوم", en: "An IPv6-only feature that doesn't work with traditional IPv4 today" } },
-        { id: "d", text: { ar: "تقنية قديمة لم تعد مدعومة في معظم أجهزة الشبكات", en: "A legacy technology no longer supported in most network devices today" } },
-      ], correctAnswer: "b",
+        { id: "d", text: { ar: "Frames بـ MTU ~9000 داخل data centers لزيادة throughput", en: "Frames with ~9000 MTU inside data centers to boost throughput rates" } },
+      ], correctAnswer: "d",
       explanation: {
         short: { ar: "تحسن iSCSI و NFS لكن يجب دعمها على كل المسار.", en: "Improve iSCSI and NFS but every hop must support them." },
       },
