@@ -60,6 +60,7 @@ export interface Question {
     example?: Localized;
     commonMistake?: Localized;
     realWorld?: Localized;
+    takeaway?: Localized;         // short practical lesson — "If X, then Y"
   };
 
   tags: string[];

@@ -100,14 +100,21 @@ function QuizContent({ trackId, level }: { trackId: Track; level: number }) {
   }
 
   function finishQuiz() {
-    const weakTags = questions
-      .filter((q) => {
-        const correct = Array.isArray(q.correctAnswer) ? q.correctAnswer[0] : q.correctAnswer;
-        return answers[q.id] !== correct;
-      })
-      .flatMap((q) => q.tags);
+    const wrongQuestions = questions.filter((q) => {
+      const correct = Array.isArray(q.correctAnswer) ? q.correctAnswer[0] : q.correctAnswer;
+      return answers[q.id] !== correct;
+    });
+    const weakTags = wrongQuestions.flatMap((q) => q.tags);
+    const wrongQuestionIds = wrongQuestions.map((q) => q.id);
 
-    const updated = recordAttempt(loadProfile(), trackId, level, correctCount, weakTags);
+    const updated = recordAttempt(
+      loadProfile(),
+      trackId,
+      level,
+      correctCount,
+      weakTags,
+      wrongQuestionIds,
+    );
     saveProfile(updated);
     setFinished(true);
   }
@@ -228,7 +235,7 @@ function QuizContent({ trackId, level }: { trackId: Track; level: number }) {
             <div className="mt-6 p-4 rounded-brand bg-void border border-brand-orange/30 animate-slide-up">
               <div className="flex items-start gap-2">
                 <Info size={18} className="text-brand-orange shrink-0 mt-0.5" />
-                <div className="space-y-2 text-sm">
+                <div className="space-y-2 text-sm flex-1">
                   <p className="text-ink leading-relaxed">
                     {t(current.explanation.short, locale)}
                   </p>
@@ -238,12 +245,25 @@ function QuizContent({ trackId, level }: { trackId: Track; level: number }) {
                     </p>
                   )}
                   {current.explanation.commonMistake && (
-                    <p className="text-warning text-xs">
+                    <p className="text-warning text-xs leading-relaxed">
                       <span className="font-display font-semibold">
                         {locale === "ar" ? "خطأ شائع: " : "Common mistake: "}
                       </span>
                       {t(current.explanation.commonMistake, locale)}
                     </p>
+                  )}
+                  {current.explanation.takeaway && (
+                    <div className="mt-3 pt-3 border-t border-brand-orange/20 flex items-start gap-2">
+                      <span className="inline-flex items-center justify-center h-5 w-5 rounded-full bg-brand-orange/20 text-brand-orange text-[10px] font-display font-bold shrink-0 mt-0.5 ltr-inline">
+                        ✓
+                      </span>
+                      <p className="text-brand-orange text-xs leading-relaxed">
+                        <span className="font-display font-semibold">
+                          {locale === "ar" ? "خلاصة عملية: " : "Takeaway: "}
+                        </span>
+                        {t(current.explanation.takeaway, locale)}
+                      </p>
+                    </div>
                   )}
                 </div>
               </div>
@@ -364,6 +384,9 @@ function ResultScreen({
               <Home size={16} />
               {locale === "ar" ? "عودة للتخصص" : "Back to track"}
             </button>
+            <Link href="/dashboard" className="btn-ghost">
+              {locale === "ar" ? "تقدمي الكامل" : "View all progress"}
+            </Link>
           </div>
         </div>
 

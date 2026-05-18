@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useLocale } from "./LocaleProvider";
-import { Languages, Zap } from "lucide-react";
+import { Languages, Zap, BarChart3 } from "lucide-react";
 
 export function Navbar() {
   const { locale, toggle } = useLocale();
@@ -21,6 +21,17 @@ export function Navbar() {
         </Link>
 
         <div className="flex items-center gap-2">
+          <Link
+            href="/dashboard"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-brand border border-void-steel text-ink hover:border-brand-orange hover:text-brand-orange transition-colors font-display font-semibold"
+            aria-label={locale === "ar" ? "تقدمي" : "My progress"}
+          >
+            <BarChart3 size={16} />
+            <span className="hidden sm:inline">
+              {locale === "ar" ? "تقدمي" : "Progress"}
+            </span>
+          </Link>
+
           <button
             onClick={toggle}
             className="inline-flex items-center gap-2 px-3 py-1.5 text-sm rounded-brand border border-void-steel text-ink hover:border-brand-orange hover:text-brand-orange transition-colors font-display font-semibold"

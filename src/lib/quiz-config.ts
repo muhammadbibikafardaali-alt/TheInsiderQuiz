@@ -57,6 +57,8 @@ export interface LevelProgress {
   passed: boolean;
   lastAttemptAt?: string;     // ISO datetime
   weakTags?: string[];        // topics student struggles with
+  /** IDs of questions the student got wrong on their most recent attempt */
+  wrongQuestionIds?: string[];
 }
 
 export interface TrackProgress {
@@ -105,6 +107,7 @@ export function recordAttempt(
   level: number,
   correct: number,
   weakTags: string[] = [],
+  wrongQuestionIds: string[] = [],
 ): StudentProfile {
   const next: StudentProfile = JSON.parse(JSON.stringify(profile));
   const trackProgress: TrackProgress =
@@ -122,6 +125,7 @@ export function recordAttempt(
     passed: prev?.passed || passed,
     lastAttemptAt: new Date().toISOString(),
     weakTags,
+    wrongQuestionIds,
   };
 
   if (passed && level >= trackProgress.unlockedUpToLevel) {
@@ -145,6 +149,94 @@ export function recordAttempt(
   }
 
   return next;
+}
+
+/**
+ * Reset progress for a single (track, level) combination. Other levels and
+ * other tracks are unaffected. If the reset level was the one that unlocked
+ * the level above it, the unlock for higher levels is also rolled back so the
+ * student must re-pass to access them.
+ */
+export function resetLevel(
+  profile: StudentProfile,
+  track: Track,
+  level: number,
+): StudentProfile {
+  const next: StudentProfile = JSON.parse(JSON.stringify(profile));
+  const trackProgress = next.tracks[track];
+  if (!trackProgress) return next;
+
+  delete trackProgress.levels[level];
+
+  // Roll back the unlock pointer if it was past this level.
+  // (We never relock level 1 — it's always available.)
+  if (trackProgress.unlockedUpToLevel > level) {
+    trackProgress.unlockedUpToLevel = Math.max(1, level);
+  }
+
+  return next;
+}
+
+/**
+ * Aggregate stats across all tracks for the dashboard.
+ */
+export interface ProfileStats {
+  totalAttempts: number;
+  totalLevelsPassed: number;
+  totalQuestionsAnswered: number;
+  totalCorrect: number;
+  overallAccuracy: number; // 0-100
+  byTrack: Array<{
+    track: Track;
+    levelsPassed: number;
+    levelsAttempted: number;
+    bestAvgScore: number; // 0-10 average of bestScore across attempted levels
+  }>;
+}
+
+export function computeStats(profile: StudentProfile): ProfileStats {
+  let totalAttempts = 0;
+  let totalLevelsPassed = 0;
+  let totalQuestionsAnswered = 0;
+  let totalCorrect = 0;
+  const byTrack: ProfileStats["byTrack"] = [];
+
+  for (const [trackKey, trackProgress] of Object.entries(profile.tracks)) {
+    if (!trackProgress) continue;
+    const levels = Object.values(trackProgress.levels);
+    let trackBestSum = 0;
+    let trackPassed = 0;
+    for (const lvl of levels) {
+      totalAttempts += lvl.attempts;
+      totalQuestionsAnswered += lvl.attempts * QUESTIONS_PER_LEVEL;
+      totalCorrect += lvl.bestScore;
+      trackBestSum += lvl.bestScore;
+      if (lvl.passed) {
+        totalLevelsPassed += 1;
+        trackPassed += 1;
+      }
+    }
+    byTrack.push({
+      track: trackKey as Track,
+      levelsPassed: trackPassed,
+      levelsAttempted: levels.length,
+      bestAvgScore: levels.length > 0 ? trackBestSum / levels.length : 0,
+    });
+  }
+
+  const overallAccuracy =
+    totalQuestionsAnswered > 0
+      ? Math.round((totalCorrect / totalQuestionsAnswered) * 100)
+      : 0;
+
+  return {
+    totalAttempts,
+    totalLevelsPassed,
+    totalQuestionsAnswered,
+    totalCorrect,
+    overallAccuracy,
+    byTrack: byTrack.sort((a, b) => b.levelsPassed - a.levelsPassed),
+  };
 }
 
 /**

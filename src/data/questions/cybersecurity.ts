@@ -391,17 +391,17 @@ export const cybersecurityBundle: TrackBundle = {
       tags: ["soc"], estimatedSeconds: 40,
     },
     { id: "sec-l3-q10", track: "cybersecurity", level: 3, type: "mcq", difficulty: "medium",
-      question: { ar: "ما incident response lifecycle؟", en: "What is the IR lifecycle?" },
+      question: { ar: "ما الترتيب الصحيح لمراحل الاستجابة للحوادث (NIST IR Lifecycle)؟", en: "What is the correct order of NIST Incident Response lifecycle phases?" },
       choices: [
-        { id: "a", text: { ar: "إجراء بعد الحادث: تحقيق، احتواء، تعافي", en: "Post-incident: investigation, containment, and recovery procedures" } },
-        { id: "b", text: { ar: "نوع من شهادات التشفير الذاتية الموقعة", en: "A type of self-signed encryption certificate today" } },
-        { id: "c", text: { ar: "بروتوكول لإدارة الشبكات الموزعة الكبيرة", en: "A protocol for managing large distributed networks" } },
-        { id: "d", text: { ar: "ميزة مدفوعة في برامج الحماية الحديثة", en: "A paid feature in modern antivirus protection software" } },
-      ], correctAnswer: "a",
+        { id: "a", text: { ar: "Identification → Containment → Eradication → Recovery → Lessons Learned → Preparation", en: "Identification → Containment → Eradication → Recovery → Lessons Learned → Preparation" } },
+        { id: "b", text: { ar: "Preparation → Detection → Recovery → Eradication → Containment → Lessons Learned", en: "Preparation → Detection → Recovery → Eradication → Containment → Lessons Learned" } },
+        { id: "c", text: { ar: "Preparation → Identification → Containment → Eradication → Recovery → Lessons Learned", en: "Preparation → Identification → Containment → Eradication → Recovery → Lessons Learned" } },
+        { id: "d", text: { ar: "Detection → Eradication → Containment → Recovery → Documentation → Closure", en: "Detection → Eradication → Containment → Recovery → Documentation → Closure" } },
+      ], correctAnswer: "c",
       explanation: {
-        short: { ar: "نموذج NIST. 'Lessons Learned' غالباً يُتجاهل رغم أهميته.", en: "NIST model. 'Lessons Learned' is often skipped despite its value." },
+        short: { ar: "نموذج NIST SP 800-61. ملاحظة: Containment يأتي قبل Eradication — تحتوي أولاً ثم تستأصل. 'Lessons Learned' كثيراً ما يُتجاهل رغم أنه يمنع تكرار الحادث.", en: "NIST SP 800-61. Critical: contain before eradicating. 'Lessons Learned' is often skipped but prevents recurrence." },
       },
-      tags: ["ir", "nist"], estimatedSeconds: 55,
+      tags: ["incident-response", "nist", "ir"], estimatedSeconds: 60,
     },
 
     // ====== LEVEL 4 ======
