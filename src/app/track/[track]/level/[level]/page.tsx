@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { LocaleProvider, useLocale } from "@/components/LocaleProvider";
@@ -18,6 +18,7 @@ import {
   QUESTIONS_PER_LEVEL,
   PASS_COUNT,
 } from "@/lib/quiz-config";
+import { drawAttempt, optionLabel, splitPrompt } from "@/lib/quiz-draw";
 import {
   CheckCircle2,
   XCircle,
@@ -33,21 +34,31 @@ function QuizContent({ trackId, level }: { trackId: Track; level: number }) {
   const { locale } = useLocale();
   const router = useRouter();
 
-  // Freeze questions on mount — safe even if empty
+  // The level's full question pool. Each attempt draws QUESTIONS_PER_LEVEL
+  // from it with shuffled options (see lib/quiz-draw.ts).
   const maxLevel = getLevelsCount(trackId);
-  const initial = useMemo(() => {
+  const pool = useMemo(() => {
     if (level < 1 || level > maxLevel) return [];
     return getQuestionsByLevel(trackId, level);
   }, [trackId, level, maxLevel]);
 
-  const [questions] = useState<Question[]>(initial);
+  // null until mounted: the draw is random, so it must happen on the client
+  // only (doing it during server render would cause a hydration mismatch).
+  const [questions, setQuestions] = useState<Question[] | null>(null);
+  const [attemptNo, setAttemptNo] = useState(0);
+  useEffect(() => {
+    const lastWrong =
+      loadProfile().tracks[trackId]?.levels[level]?.wrongQuestionIds ?? [];
+    setQuestions(drawAttempt(pool, QUESTIONS_PER_LEVEL, lastWrong));
+  }, [pool, trackId, level, attemptNo]);
+
   const [currentIdx, setCurrentIdx] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [revealed, setRevealed] = useState<Record<string, boolean>>({});
   const [finished, setFinished] = useState(false);
 
   const correctCount = useMemo(() => {
-    return questions.reduce((acc, q) => {
+    return (questions ?? []).reduce((acc, q) => {
       const correct = Array.isArray(q.correctAnswer) ? q.correctAnswer[0] : q.correctAnswer;
       return acc + (answers[q.id] === correct ? 1 : 0);
     }, 0);
@@ -56,7 +67,19 @@ function QuizContent({ trackId, level }: { trackId: Track; level: number }) {
   const bundle = getBundle(trackId);
 
   // After all hooks — we can safely return error UI without violating rules of hooks
-  if (!bundle || questions.length === 0 || level < 1 || level > maxLevel) {
+  if (bundle && pool.length > 0 && questions === null) {
+    return (
+      <main className="min-h-screen bg-void">
+        <Navbar />
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8" aria-busy="true">
+          <div className="h-1.5 w-full bg-void-slate rounded-full mb-8" />
+          <div className="card h-80 animate-pulse" />
+        </div>
+      </main>
+    );
+  }
+
+  if (!bundle || !questions || questions.length === 0 || level < 1 || level > maxLevel) {
     return (
       <main className="min-h-screen bg-void">
         <Navbar />
@@ -100,6 +123,7 @@ function QuizContent({ trackId, level }: { trackId: Track; level: number }) {
   }
 
   function finishQuiz() {
+    if (!questions) return;
     const wrongQuestions = questions.filter((q) => {
       const correct = Array.isArray(q.correctAnswer) ? q.correctAnswer[0] : q.correctAnswer;
       return answers[q.id] !== correct;
@@ -114,12 +138,16 @@ function QuizContent({ trackId, level }: { trackId: Track; level: number }) {
       correctCount,
       weakTags,
       wrongQuestionIds,
+      questions.length,
     );
     saveProfile(updated);
     setFinished(true);
   }
 
   function handleRetry() {
+    // A retry draws a fresh set (missed questions first) with re-shuffled options.
+    setQuestions(null);
+    setAttemptNo((n) => n + 1);
     setAnswers({});
     setRevealed({});
     setCurrentIdx(0);
@@ -144,6 +172,7 @@ function QuizContent({ trackId, level }: { trackId: Track; level: number }) {
     ? current.correctAnswer[0]
     : current.correctAnswer;
   const progress = ((currentIdx + 1) / questions.length) * 100;
+  const { prompt, code } = splitPrompt(t(current.question, locale));
 
   return (
     <main className="min-h-screen bg-void">
@@ -184,13 +213,21 @@ function QuizContent({ trackId, level }: { trackId: Track; level: number }) {
               {currentIdx + 1}
             </span>
             <h2 className="font-display font-semibold text-lg sm:text-xl text-ink leading-relaxed">
-              {t(current.question, locale)}
+              {prompt}
             </h2>
           </div>
+          {code && (
+            <pre
+              dir="ltr"
+              className="mt-2 mb-2 p-4 rounded-brand bg-void border border-void-steel text-sm font-mono text-ink overflow-x-auto text-left"
+            >
+              <code>{code}</code>
+            </pre>
+          )}
 
           {/* Choices */}
           <div className="flex flex-col gap-2.5 mt-6">
-            {current.choices?.map((choice) => {
+            {current.choices?.map((choice, idx) => {
               const selected = userAnswer === choice.id;
               const isCorrect = choice.id === correctChoiceId;
               const showResult = isRevealed;
@@ -213,8 +250,8 @@ function QuizContent({ trackId, level }: { trackId: Track; level: number }) {
                     isRevealed ? "cursor-default" : "cursor-pointer"
                   }`}
                 >
-                  <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-current text-caption font-display font-bold uppercase ltr-inline">
-                    {choice.id}
+                  <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-current text-caption font-display font-bold">
+                    {optionLabel(idx, locale)}
                   </span>
                   <span className="text-ink text-sm sm:text-base flex-1 leading-relaxed">
                     {t(choice.text, locale)}
@@ -414,7 +451,7 @@ function ResultScreen({
                   <span className="text-ink-muted font-display font-semibold ltr-inline me-1">
                     {i + 1}.
                   </span>
-                  {t(q.question, locale)}
+                  {splitPrompt(t(q.question, locale)).prompt}
                 </span>
               </div>
             );

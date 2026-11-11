@@ -108,13 +108,14 @@ export function recordAttempt(
   correct: number,
   weakTags: string[] = [],
   wrongQuestionIds: string[] = [],
+  total: number = QUESTIONS_PER_LEVEL,
 ): StudentProfile {
   const next: StudentProfile = JSON.parse(JSON.stringify(profile));
   const trackProgress: TrackProgress =
     next.tracks[track] ?? { track, unlockedUpToLevel: 1, levels: {} };
 
   const prev = trackProgress.levels[level];
-  const passed = isPassing(correct);
+  const passed = isPassing(correct, total);
   const bestScore = Math.max(prev?.bestScore ?? 0, correct);
 
   trackProgress.levels[level] = {
