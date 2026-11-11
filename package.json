@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "audit": "python3 tools/quiz_audit.py --quiet",
+    "audit:test": "python3 -m unittest tools/test_quiz_audit.py"
   },
   "dependencies": {
     "lucide-react": "^0.460.0",

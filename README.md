@@ -112,6 +112,31 @@ Fonts (loaded from Google Fonts via `globals.css`):
 
 ---
 
+## 🔍 Audit answer quality (Python)
+
+`tools/quiz_audit.py` reads every question bundle (standard library only, no Node needed) and flags options that give the answer away:
+
+| Code | Meaning |
+|---|---|
+| `RECYCLED` (error) | the same generic distractor is reused across many questions |
+| `LENGTH` (error in EN, warning in AR) | the correct option is clearly longer than every distractor |
+| `SHORT` | the correct option is clearly shorter than every distractor |
+| `ABSOLUTE` | only the distractors use words like "always", "never", "guarantee" |
+| `ECHO` | only the correct option repeats a keyword from the question |
+| `COUNT` | a level has fewer than 10 questions |
+| `POSITION`, `DUPLICATE`, `CHOICES`, `ANSWER` | answer-slot skew, repeated stems, malformed options |
+
+```bash
+npm run audit                                   # summary table
+python3 tools/quiz_audit.py --track algorithms  # full list for one track
+python3 tools/quiz_audit.py --strict            # exit 1 on any error (for CI)
+npm run audit:test                              # unit tests for the checker
+```
+
+## 🎲 How an attempt is built
+
+Each level has a pool of questions (≥ 10). An attempt draws 10 of them — questions you missed last time come back first (up to half) — and shuffles the order of the answer options, so the correct answer is never stuck in one slot. Labels A–D (أ–د in Arabic) come from the position on screen. See `src/lib/quiz-draw.ts`.
+
 ## 🧪 Validate content
 
 ```ts
