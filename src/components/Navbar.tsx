@@ -14,8 +14,8 @@ export function Navbar() {
           <span className="inline-flex h-9 w-9 items-center justify-center rounded-brand bg-brand-orange text-white shadow-brand-glow-sm group-hover:shadow-brand-glow transition-shadow">
             <Zap size={18} strokeWidth={2.5} />
           </span>
-          <span className="font-display font-bold text-lg tracking-tight">
-            <span className="text-ink-muted me-1 ltr-inline">THE</span>
+          <span dir="ltr" className="font-display font-bold text-lg tracking-tight">
+            <span className="text-ink-muted mr-1">THE</span>
             <span className="text-brand-orange">INSIDER</span>
           </span>
         </Link>

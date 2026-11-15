@@ -1,7 +1,7 @@
 # THE INSIDER — IT Practice Platform
 
 > Bilingual (Arabic/English) practice platform for IT students and junior professionals.
-> **15 specializations × 730 questions total** (14 tracks × 5 levels × 50 + AI Prompting × 3 levels × 30).
+> **15 specializations, 750 questions total** (most tracks: 5 levels × 10 questions; the rewritten Algorithms and Operating Systems tracks: 5 levels × 12; AI Prompting: 3 levels × 10). Each attempt draws 10 questions from the level's pool.
 
 Built with Next.js 15, React 19, TypeScript, and Tailwind CSS.
 
@@ -16,7 +16,7 @@ Built with Next.js 15, React 19, TypeScript, and Tailwind CSS.
 - 💾 **Progress tracking** — XP, streaks, level unlocks persisted in localStorage. Restart only happens when user explicitly clicks "Retry" on the result screen.
 - 📱 **Mobile-first** — optimized for phones first, scales up
 - ⚡ **Zero backend** — pure static content, cheap to host, fast to load
-- ⚖️ **Balanced answer choices** — all 730 questions across all 15 tracks have been rebalanced so the correct answer doesn't stand out by being the longest. Top 5 tracks (Python/Web/Linux/Cyber/Networking) use hand-authored balanced distractors; the other 9 use plausible domain-pool distractors.
+- ⚖️ **Balanced answer choices** — answer options are shuffled per attempt, and `tools/quiz_audit.py` flags giveaways (longest-option, recycled filler distractors, absolute wording). Algorithms and Operating Systems are fully rewritten with same-topic distractors; other tracks are being reworked one at a time.
 
 ---
 
@@ -112,13 +112,39 @@ Fonts (loaded from Google Fonts via `globals.css`):
 
 ---
 
+## 🔍 Audit answer quality (Python)
+
+`tools/quiz_audit.py` reads every question bundle (standard library only, no Node needed) and flags options that give the answer away:
+
+| Code | Meaning |
+|---|---|
+| `RECYCLED` (error) | the same generic distractor is reused across many questions |
+| `LENGTH` (error in EN, warning in AR) | the correct option is clearly longer than every distractor |
+| `SHORT` | the correct option is clearly shorter than every distractor |
+| `ABSOLUTE` | only the distractors use words like "always", "never", "guarantee" |
+| `ECHO` | only the correct option repeats a keyword from the question |
+| `COUNT` | a level has fewer than 10 questions |
+| `POSITION`, `DUPLICATE`, `CHOICES`, `ANSWER` | answer-slot skew, repeated stems, malformed options |
+| `META` (error) | duplicate ids, id/level or track mismatch, choice ids not a–d, missing Arabic or English text |
+
+```bash
+npm run audit                                   # summary table
+python3 tools/quiz_audit.py --track algorithms  # full list for one track
+python3 tools/quiz_audit.py --strict            # exit 1 on any error (for CI)
+npm run audit:test                              # unit tests for the checker
+```
+
+## 🎲 How an attempt is built
+
+Each level has a pool of questions (≥ 10). An attempt draws 10 of them — questions you missed last time come back first (up to half) — and shuffles the order of the answer options, so the correct answer is never stuck in one slot. Labels A–D (أ–د in Arabic) come from the position on screen. See `src/lib/quiz-draw.ts`.
+
 ## 🧪 Validate content
 
 ```ts
 import { runContentValidation, getAllStats } from "@/data/questions";
 
 console.log(getAllStats());
-// { tracks: 14, totalQuestions: 700, perTrack: [...] }
+// { tracks: 15, totalQuestions: 750, perTrack: [...] }
 
 const errors = runContentValidation();
 if (errors.length) console.error("Content issues:", errors);

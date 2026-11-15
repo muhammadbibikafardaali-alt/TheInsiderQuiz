@@ -36,8 +36,8 @@ function HomeContent() {
 
           <p className="text-body text-ink-muted max-w-2xl mx-auto mb-8 text-base sm:text-lg">
             {locale === "ar"
-              ? "14 تخصصاً تقنياً. 5 مستويات لكل تخصص. أسئلة عملية صُممت من تجربة حقيقية، باللغة العربية والإنجليزية."
-              : "14 IT specializations. 5 levels each. Real-world practice questions crafted from hands-on experience, in Arabic and English."}
+              ? "15 تخصصاً تقنياً. حتى 5 مستويات لكل تخصص. أسئلة عملية صُممت من تجربة حقيقية، باللغة العربية والإنجليزية."
+              : "15 IT specializations. Up to 5 levels each. Real-world practice questions crafted from hands-on experience, in Arabic and English."}
           </p>
 
           {/* Stat row */}

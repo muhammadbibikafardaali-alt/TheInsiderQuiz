@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "THE INSIDER — IT Practice Platform",
   description:
-    "منصة عربية لاختبار مهاراتك في تكنولوجيا المعلومات. 14 تخصص، 5 مستويات، 700 سؤال عملي. | Bilingual IT practice platform — 14 tracks × 5 levels × 700 questions.",
+    "منصة عربية لاختبار مهاراتك في تكنولوجيا المعلومات. 15 تخصصاً، حتى 5 مستويات، أكثر من 750 سؤالاً عملياً. | Bilingual IT practice platform — 15 tracks, up to 5 levels, 750+ questions.",
   applicationName: "THE INSIDER",
   authors: [{ name: "Muhammad Bibi" }],
   keywords: [
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "THE INSIDER — IT Practice Platform",
-    description: "14 IT specializations, 5 levels each, 700 bilingual questions.",
+    description: "15 IT specializations, up to 5 levels each, 750+ bilingual questions.",
     type: "website",
     locale: "ar_SA",
     alternateLocale: ["en_US"],
