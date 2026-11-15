@@ -21,6 +21,11 @@ the data files use) and reports:
                  but a skewed source file is still a smell.)
 * COUNT        - a level has fewer than the minimum number of questions.
 * DUPLICATE    - two questions share the same English stem.
+* META         - structural problems: duplicate question ids, an id whose
+                 "-l<level>-" part disagrees with the level field, a track
+                 field that differs from its bundle, choice ids other than
+                 a/b/c/d (or repeated), or a missing/empty Arabic or English
+                 text in the question, options or short explanation.
 * RECYCLED     - the same distractor text is reused across many questions
                  (generic filler such as "A protocol for managing
                  communications between distributed services"). Students
@@ -313,9 +318,43 @@ def check_echo(q: dict) -> str | None:
     return None
 
 
+ID_RE = re.compile(r"^[a-z_]+-l(\d+)-q\d{2,}$")
+VALID_CHOICE_IDS = ("a", "b", "c", "d")
+
+
+def _missing_text(loc: Any) -> list[str]:
+    """Languages (ar/en) that are missing or blank in a {ar, en} object."""
+    if not isinstance(loc, dict):
+        return ["ar", "en"]
+    return [lang for lang in ("ar", "en") if not str(loc.get(lang) or "").strip()]
+
+
+def check_meta(q: dict, bundle_track: str) -> list[str]:
+    """Structural problems in one question (empty list when it is fine)."""
+    problems: list[str] = []
+    m = ID_RE.match(str(q.get("id", "")))
+    if not m:
+        problems.append(f"id {q.get('id')!r} does not look like <prefix>-l<level>-q<nn>")
+    elif int(m.group(1)) != q.get("level"):
+        problems.append(f"id says level {m.group(1)} but level field is {q.get('level')}")
+    if q.get("track") != bundle_track:
+        problems.append(f"track field {q.get('track')!r} differs from bundle {bundle_track!r}")
+    ids = [c.get("id") for c in q.get("choices") or []]
+    if len(set(ids)) != len(ids) or any(i not in VALID_CHOICE_IDS for i in ids):
+        problems.append(f"choice ids {ids} should be unique values from a/b/c/d")
+    for where, loc in [("question", q.get("question"))] + [
+        (f"option {c.get('id')}", c.get("text")) for c in q.get("choices") or []
+    ] + [("explanation.short", (q.get("explanation") or {}).get("short"))]:
+        missing = _missing_text(loc)
+        if missing:
+            problems.append(f"{where} is missing {'/'.join(missing)} text")
+    return problems
+
+
 def audit(bundles: list[dict]) -> Report:
     report = Report()
     seen_stems: dict[str, str] = {}
+    seen_ids: dict[str, str] = {}
     totals = Counter()
 
     # Count how often each distractor text is used across the whole bank
@@ -340,6 +379,14 @@ def audit(bundles: list[dict]) -> Report:
             per_level[q["level"]] += 1
             totals["questions"] += 1
             choices = q.get("choices") or []
+
+            # META
+            for problem in check_meta(q, track):
+                report.add("ERROR", "META", track, qid, problem, file)
+            if qid in seen_ids:
+                report.add("ERROR", "META", track, qid, f"duplicate id (also in {seen_ids[qid]})", file)
+            else:
+                seen_ids[qid] = track
 
             # CHOICES
             if q.get("type") in ("mcq", "scenario", "code", "terminal") and len(choices) != 4:

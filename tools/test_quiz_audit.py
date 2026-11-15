@@ -19,6 +19,7 @@ def make_q(correct_text: str, wrong: list[str], qid: str = "t-l1-q01") -> dict:
         "question": {"en": "What is a stack?", "ar": "ما stack؟"},
         "choices": [{"id": "abcd"[i], "text": {"en": t, "ar": t}} for i, t in enumerate(texts)],
         "correctAnswer": "a",
+        "explanation": {"short": {"en": "Because.", "ar": "لأن."}},
     }
 
 
@@ -62,6 +63,39 @@ class CheckTests(unittest.TestCase):
     def test_echo(self):
         q = make_q("A stack stores items LIFO", ["Items in FIFO order", "Sorted by key", "Random order"])
         self.assertIn("stack", qa.check_echo(q))
+
+
+class MetaTests(unittest.TestCase):
+    def good(self) -> dict:
+        return make_q("Last in, first out", ["First in, first out", "Sorted by priority", "Random access"])
+
+    def test_clean_question_has_no_meta_problems(self):
+        self.assertEqual(qa.check_meta(self.good(), "test"), [])
+
+    def test_level_mismatch_in_id(self):
+        q = self.good()
+        q["level"] = 2
+        self.assertTrue(any("level" in p for p in qa.check_meta(q, "test")))
+
+    def test_wrong_track_and_bad_choice_ids(self):
+        q = self.good()
+        q["choices"][3]["id"] = "a"
+        problems = qa.check_meta(q, "other")
+        self.assertTrue(any("track field" in p for p in problems))
+        self.assertTrue(any("choice ids" in p for p in problems))
+
+    def test_missing_arabic_text(self):
+        q = self.good()
+        q["choices"][1]["text"]["ar"] = "  "
+        q["explanation"]["short"] = {"en": "x"}
+        problems = qa.check_meta(q, "test")
+        self.assertIn("option b is missing ar text", problems)
+        self.assertIn("explanation.short is missing ar text", problems)
+
+    def test_real_bank_has_no_meta_errors(self):
+        report = qa.audit(qa.load_all())
+        meta = [f for f in report.findings if f.code == "META"]
+        self.assertEqual(meta, [], meta[:5])
 
 
 if __name__ == "__main__":
